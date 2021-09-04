@@ -4,9 +4,9 @@
 
 C++에서 포인터의 메모리관리를 쉽게 해주기위해 스마트 포인터가 나왔다.
 
-C++에서의 스마트 포인터는 shared_ptr, unique_ptr, weak_ptr, auto_ptr 네가지가 있고 auto_ptr은 C++14에서 삭제되었다.
+C++에서의 스마트 포인터는 `shared_ptr`, `unique_ptr`, `weak_ptr`, `auto_ptr` 네가지가 있고 `auto_ptr`은 C++14에서 삭제되었다.
 
-auto_ptr은 문제가 많아 삭제되었으므로 다루지않고 나머지 세가지를 정리한다.
+`auto_ptr`은 문제가 많아 삭제되었으므로 다루지않고 나머지 세가지를 정리한다.
 
 <br>
 
@@ -60,15 +60,15 @@ auto_ptr은 문제가 많아 삭제되었으므로 다루지않고 나머지 세
 - 소유권이 아닌 공유 방식 사용
 - 참조 카운트가 0이 될 때만, 해당 객체가 자동으로 삭제됨
 
-shared_ptr에서 상호참조문제가 발생하는데 weak_ptr을 살펴보고 알아보자.
+`shared_ptr`에서 상호참조문제가 발생하는데 `weak_ptr`을 살펴보고 알아보자.
 
 <br>
 
 > ## weak_ptr
 
-- shared_ptr와 함께 사용할 수 있는 스마트 포인터
-- shared_ptr의 문제점(상호 참조로 인해 객체가 삭제되지 않는 상황)을 보완하기 위해 사용되는 특수 포인터
-- shared*ptr을 weak*ptr로 참조 시, 참조 카운트에 포함되지 않음
+- `shared_ptr`와 함께 사용할 수 있는 스마트 포인터
+- `shared_ptr`의 문제점(상호 참조로 인해 객체가 삭제되지 않는 상황)을 보완하기 위해 사용되는 특수 포인터
+- `shared_ptr`을 `weak_ptr`로 참조 시, 참조 카운트에 포함되지 않음
 
 <br>
 
@@ -151,7 +151,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 아니다. 사라지지않은 `Party` 객체가 `User` 객체들을 `shared_ptr`로 가지고 있어서 메모리 해제가 안된다.
 
-그래서 User가 Party를 `weak_ptr`로 래퍼런싱하고 있는 해결책이 있다.
+그래서 `User`가 `Party`를 `weak_ptr`로 래퍼런싱하는 해결책이 있다.
+
+그러면 `Party`의 Reference Count는 main함수의 shared_ptr만 있으므로 1이 되고 `reset()`시에 `Party`객체는 해제된다.
+
+그러고 `User`에서 래퍼런싱하고 있는 `Party`에 대한 `weak_ptr`은 `nullptr`이 된다.
 
 그렇다면 C#에서 Garbage Collector는 이러한 문제를 어떻게 해결할까.
 
