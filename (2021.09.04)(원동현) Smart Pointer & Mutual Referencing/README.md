@@ -10,7 +10,7 @@ auto_ptr은 문제가 많아 삭제되었으므로 다루지않고 나머지 세
 
 <br>
 
-> ## RALL(Resource Acquisition Is Initialization) 원칙
+> ## RAII(Resource Acquisition Is Initialization) 원칙
 
 먼저 정리하기 전에 스마트 포인터는 RALL 원칙을 따르기위한 객체이다.
 
