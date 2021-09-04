@@ -39,7 +39,7 @@ GC root로부터 래퍼런스들을 이어주면 일종의 object graph가 만�
 
 > ## Limits of the Garbage Collector
 
-### Unused objects that are still referenced
+> ### Unused objects that are still referenced
 
 사용하진않지만 reference가 남아 collect되지 않는 object가 있을 수 있음.
 
