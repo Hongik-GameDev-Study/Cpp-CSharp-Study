@@ -147,7 +147,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 하지만 `Party` 객체는 사라지지않는다. 왜냐하면 다수의 `User`가 참조하고 있기때문에.
 
-그래서 `reset()`에서 겉보기와는 다른 결과가 나온다.
+그러면 `User` 들도 전부 `reset()`하면 될까? 
+
+아니다. 사라지지않은 `Party` 객체가 `User` 객체들을 `shared_ptr`로 가지고 있어서 메모리 해제가 안된다.
 
 그래서 User가 Party를 `weak_ptr`로 래퍼런싱하고 있는 해결책이 있다.
 
