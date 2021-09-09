@@ -1,6 +1,7 @@
 # Move semantics and rvalue references in C++11
 
----
+<br>
+
 
 ```cpp
 #include <iostream>
@@ -35,15 +36,14 @@ int main()
 
 하지만 이는 불필요한 복사이다. 우리의 목적은 new_value → v 일뿐이기때문...
 
-그저 temp를 v로 **이동(move)**시켜주는 문법은 없을까.
+그저 temp를 v로 복사가 아닌 **이동(move)**시켜주는 문법은 없을까.
 
-그래서 C++11에서 이를 해결해주는 ravlue reference와 move semantics가 등장한다.
+그래서 C++11에서 이를 해결해주는 **rvalue reference**와 **move semantics**가 등장한다.
 
 먼저 rvalue부터 살펴본다.
 
 <br>
-
-<hr>
+---
 
 ## Detecting temporary objects with rvalue references
 
@@ -247,7 +247,7 @@ printReference( getName() );
 
 <br>
 
-<hr>
+---
 
 ## Move constructor and move assignment operator
 
@@ -428,8 +428,7 @@ lvalue를 rvalue로 바꿀수 있다면 참 좋겠다.
 
 <br>
 
-<hr>
-
+---
 
 ## std::move
 
@@ -455,12 +454,17 @@ MetaData (MetaData&& other)
 {}
 ```
 
+그리고 std::move를 한 피연산자 객체의 내용물은 그대로이지 않을 수 있다.
+
+> Do not rely on the value of a moved-from object
+
 <br>
 
-<hr>
-
+---
 
 ## Returning an explicit rvalue-reference from a function
+
+rvalue reference를 반환 타입으로 사용할 수도 있다.
 
 ```cpp
 #include <iostream>
@@ -497,6 +501,18 @@ int main()
 
 ![Untitled](Move%20semantics%20and%20rvalue%20references%20in%20C++11%209e161d92b4e043908f4adf63238b5330/Untitled.png)
 
+주소의 차이로 rvalue reference를 사용하니 주소가 한번도 안 바뀌는 것을 볼 수 있다.
+
+즉, 복사가 한 번도 안 일어났다는 것이다.
+
+하지만 rvalue reference로 반환을 할 일이 많을 것 같진않다...
+
+<br>
+
+---
+
 ## 참고자료
 
 [Rvalue References and Move Semantics in C++11 - Cprogramming.com](https://www.cprogramming.com/c++11/rvalue-references-and-move-semantics-in-c++11.html)
+
+[EXP63-CPP. Do not rely on the value of a moved-from object](https://wiki.sei.cmu.edu/confluence/display/cplusplus/EXP63-CPP.+Do+not+rely+on+the+value+of+a+moved-from+object)
