@@ -4,8 +4,6 @@
 
 vector는 array 기반, list는 Linked List 기반으로 value를 저장하는 자료구조입니다.
 
----
-
 
 <br>
 
@@ -22,7 +20,6 @@ vector는 array 기반, list는 Linked List 기반으로 value를 저장하는 �
 * 하지만 그 외의 곳에 insert / delete 하는 경우, 모든 요소를 한 칸 뒤로 밀고 요소를 삽입하기 때문에,
 O(n)으로 느린 시간 복잡도를 가집니다.
 
----
 
 
 <br>
