@@ -1,7 +1,5 @@
 # Queue & Priority Queue in C++11
 
-<br>
-
 * queue는 선입선출 기반의 선형 자료구조이며 내부는 deque로 되어있습니다.
 priority_queue는 이름은 queue이나 우선 순위가 높은 데이터가 먼저 나가는 heap 기반의 tree 자료구조입니다.
 
