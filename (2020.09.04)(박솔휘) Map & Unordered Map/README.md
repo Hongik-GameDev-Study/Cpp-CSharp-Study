@@ -36,11 +36,15 @@ map처럼 정렬할 필요가 없기 때문에 insert, delete, search가 모두 
 
 ﻿
 
-> Key 값이 int일 때, 위와 같이 특정 데이터의 양 이상으로 많아지면 unordered_map이 압도적으로 성능이 좋아집니다.
+'Key 값이 int일 때, 위와 같이 특정 데이터의 양 이상으로 많아지면 unordered_map이 압도적으로 성능이 좋아집니다.'
+
+
+---
+
 
 <br>
 
-> 하지만 Key 값이 string일 땐 주의할 점이 있습니다.
+> ## 하지만 Key 값이 string일 땐 주의할 점이 있습니다.
 
 * map의 Key 비교 함수는 앞에서부터 차례대로 비교하여 크고 작음을 가려내기 때문에, Key 문자열 길이의 변화는 그 영향이 적을 확률이 높습니다.
 (하지만 타임 스탬프 기록 등 앞 부분 유사도가 높은 경우엔 주의해야 합니다.)
@@ -51,6 +55,8 @@ map처럼 정렬할 필요가 없기 때문에 insert, delete, search가 모두 
 
 ![Untitled](https://postfiles.pstatic.net/MjAyMTA5MDRfMjUy/MDAxNjMwNjg5NTc3MzQ1.PBfUqI-56Z9fzC-5ns29wfbgnOD2J47ubzsdHfWHDpsg.6TZStB0YbpKIKV_Y8xchvNTBYp-FYkLloqVZfyJrJZAg.PNG.psh50zmfhtm/image.png?type=w966)
 
+
+---
 
 > ## 결론
 
