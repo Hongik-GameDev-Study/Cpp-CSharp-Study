@@ -8,9 +8,7 @@
 
 > ## Map
 
----
-
-map은 여타 STL 컨테이너와 비슷하게 RB Tree로 구현되어 있습니다.
+* map은 여타 STL 컨테이너와 비슷하게 RB Tree로 구현되어 있습니다.
 
 * RB Tree는 AVL Tree처럼 완벽한 이진 트리를 형성하진 않지만,
 Self balancing 기능으로 어느 정도 O(log n)의 탐색 시간을 보장하는 자료구조입니다.
@@ -18,3 +16,41 @@ Self balancing 기능으로 어느 정도 O(log n)의 탐색 시간을 보장하
 
 * Key 값의 분포가 고르지 못한 경우, balancing에 대한 cost때문에 insert, delete의 성능이 떨어집니다.
 하지만 그 속도가 O(log n)인 것은 보장됩니다.
+
+
+<br>
+
+> ## Unordered Map
+
+* unordered_map은 hash table로 구현되어 있습니다.
+
+* hash table은 말 그대로 hash 값을 hash function으로 주소로 변환하여 접근합니다.
+map처럼 정렬할 필요가 없기 때문에 insert, delete, search가 모두 O(1)로 일정합니다.
+
+* 하지만 hash function 만큼의 cost가 항상 필요하기 때문에 고정적인 cost가 존재합니다.
+그래서 데이터의 양에 따라 아래와 같이 map과 성능이 비교될 수 있습니다.
+
+﻿
+
+
+대표사진 삭제
+오른쪽 정렬오른쪽 정렬왼쪽 정렬왼쪽 정렬가운데 정렬가운데 정렬
+사진 편집
+작게작게문서 너비문서 너비옆트임옆트임
+삭제삭제
+사진 설명을 입력하세요.
+
+﻿
+
+
+<br>
+
+> ## Unordered Map
+
+* unordered_map은 hash table로 구현되어 있습니다.
+
+* hash table은 말 그대로 hash 값을 hash function으로 주소로 변환하여 접근합니다.
+map처럼 정렬할 필요가 없기 때문에 insert, delete, search가 모두 O(1)로 일정합니다.
+
+* 하지만 hash function 만큼의 cost가 항상 필요하기 때문에 고정적인 cost가 존재합니다.
+그래서 데이터의 양에 따라 아래와 같이 map과 성능이 비교될 수 있습니다.
