@@ -32,8 +32,7 @@ map처럼 정렬할 필요가 없기 때문에 insert, delete, search가 모두 
 
 ﻿
 
-
-https://postfiles.pstatic.net/MjAyMTA5MDRfMjA4/MDAxNjMwNjg3MjEyOTU4.n9RL2F7CCaydmdYMR2SR_DlyJqUBN2SsvVjJb2jyAQgg.WJt-JwzdwMML8LYlBoDapscncHYbFsdYW6chi_5sM_sg.PNG.psh50zmfhtm/image.png?type=w966
+![Untitled](https://postfiles.pstatic.net/MjAyMTA5MDRfMjA4/MDAxNjMwNjg3MjEyOTU4.n9RL2F7CCaydmdYMR2SR_DlyJqUBN2SsvVjJb2jyAQgg.WJt-JwzdwMML8LYlBoDapscncHYbFsdYW6chi_5sM_sg.PNG.psh50zmfhtm/image.png?type=w966)
 
 ﻿
 
