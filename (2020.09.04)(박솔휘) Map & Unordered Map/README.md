@@ -33,12 +33,7 @@ map처럼 정렬할 필요가 없기 때문에 insert, delete, search가 모두 
 ﻿
 
 
-대표사진 삭제
-오른쪽 정렬오른쪽 정렬왼쪽 정렬왼쪽 정렬가운데 정렬가운데 정렬
-사진 편집
-작게작게문서 너비문서 너비옆트임옆트임
-삭제삭제
-사진 설명을 입력하세요.
+https://postfiles.pstatic.net/MjAyMTA5MDRfMjA4/MDAxNjMwNjg3MjEyOTU4.n9RL2F7CCaydmdYMR2SR_DlyJqUBN2SsvVjJb2jyAQgg.WJt-JwzdwMML8LYlBoDapscncHYbFsdYW6chi_5sM_sg.PNG.psh50zmfhtm/image.png?type=w966
 
 ﻿
 
