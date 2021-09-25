@@ -1,6 +1,6 @@
 # Unity Coroutines in Detail
 
----
+Unity Coroutine은 어떻게 작동하는걸까?
 
 엔진 내부는 볼 수 없으니 C#의 기능을 통해 추측해보고자 한다.
 
@@ -217,4 +217,4 @@ public class CoroutineManager : MonoBehaviour
 
 [Unity Coroutines: How Do They Work?](https://gamedevunboxed.com/unity-coroutines-how-do-they-work/)
 
-[](https://blog.csdn.net/StupidCodeGenerator/article/details/11526285)
+[Unity3D coroutines in detail](https://blog.csdn.net/StupidCodeGenerator/article/details/11526285)
