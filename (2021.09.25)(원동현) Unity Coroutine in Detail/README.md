@@ -4,15 +4,31 @@ Unity Coroutine은 어떻게 작동하는걸까?
 
 엔진 내부는 볼 수 없으니 C#의 기능을 통해 추측해보고자 한다.
 
-아마도 C#의 Iterator (반복자: `IEnumerator`)를 이용하여 구현했을 것으로 보인다.
+우선 Unity Technology에서 Unity Engine내부를 어떻게 구현했는지는 모른다.
 
-그래서 Coroutine을 구현할 때 `IEnumerator`를 반환하는 함수를 정의하는 것이다.
+하지만 짐작은 할 수 있다.
 
-## Understanding IEnumerator
+두가지 단서로 말이다.
 
-`IEnumerator`와 `IEnumerable`은 C#의 모든 컬렉션이 상속받아 구현하는 인터페이스이다.
+```csharp
+IEnumerator UnityCoroutine()
+{
+	// ...
+	yield return null;
+	// ...
+}
+```
 
-이 인터페이스들은 컬렉션이 데이터를 어떻게 저장하는지를 숨긴 채 순회하는 기능을 제공한다.
+- `IEnumerator`타입을 리턴해야 함.
+- `yield return` 키워드를 사용한다.
+
+이 둘은 C#의 문법이며 Unity가 만든게 아니다. 그러므로 Unity는 C#의 문법을 이용하여 Coroutine 기능을 제공한다고 추측해볼 수 있다.
+
+## What is Iterators ?
+
+Iterator 반복자는 Collection의 종류와 상관없이 Collection의 원소들을 순회하는 기능을 제공한다.
+
+이는 `IEnumerator`와 `IEnumerable`을 통해 캡슐화되어있다.
 
 [IEnumerator Interface (System.Collections)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.ienumerator?view=net-5.0)
 
@@ -22,38 +38,104 @@ Unity Coroutine은 어떻게 작동하는걸까?
 
 `IEnumerable`
 
-이를 왜 설명하냐면 Unity Coroutine은 C#의 `IEnumerator`를 사용한 일종의 트릭이기때문이다.
+보면 `IEnumerator`는 `MoveNext`, `Current`와 같은 순회하는 기능을 가지고 있고, `IEnumerable`은 `IEnumerator`를 반환하는 `GetEnumerator`를 가지고 있다.
+
+그리고 순회하는 기능은 `foreach`문과도 연동되어있어 모든 Collection은 `foreach`문을 사용할 수 있는 것이다.
+
+이는 조금 독특한데 직접 구현하여 foreach문을 돌려보면 알 수 있다.
 
 ```csharp
-IEnumerator LongCompution()
+public static void Main()
 {
-	while(someCondition)
-	{
-		yield return null;
-	}
+    MyCollection myCollection = new MyCollection ();
+    foreach (var e in myCollection)
+    {
+				//...
+    }
+
+}
+
+public class MyCollection : IEnumerable<int>
+{
+    private int[] data = { 1, 2, 3 };
+    public IEnumerator GetEnumerator()
+    {
+        return data.GetEnumerator();
+    }
+
+    IEnumerator<int> IEnumerable<int>.GetEnumerator()
+    {
+        foreach (var e in data)
+            yield return e;
+    }
 }
 ```
 
-이런식으로 Unity Coroutine을 사용할 수 있다.
+대충이나마 구현해보았다.
 
-하지만 이게 C#과 무슨 상관일까?
+보면 `IEnumerator`는 구현하지 않았는데, 이는 `yield return`의 마법에 숨겨져있다.
 
-우선 Unity Technology에서 Unity Engine내부를 어떻게 구현했는지는 모른다.
+컴파일러가 `yield return`을 만나면 이 함수는 반복자임을 알아차리고 `IEnumerator`를 구현해준다.
 
-하지만 짐작은 할 수 있다.
+직접 구현해서 보고자하는 부분은 `yield return`이다.
 
-두가지 단서로 말이다.
+`yield return`을 하여 함수를 빠져나오고 다음 실행시 `yield return`의 다음 문장부터 실행한다.
 
-- `IEnumerator`타입을 리턴해야 함.
-- `yield return` 키워드를 사용한다.
+이는 Unity의 Coroutine과 매우 흡사한 실행 방식이며 Unity는 이를 역이용하여 Coroutine을 구현한 것으로 보인다.
 
-`IEnumerator`는 C#의 컬렉션에서 사용된다.
+컴파일러가 직접 구현해주지 않게 하려면 우리가 직접 구현하면 된다.
 
-이는 컬렉션의 요소를 하나씩 반환하기위해 사용하는데, 요소가 무한개여도 프로그램이 막히지않는다.
+```csharp
+public class MyIntList : IEnumerable
+{
+    int[] data = { 1, 2, 3 };
 
-`IEnumerator`에서 정의하는 `Current` 프로퍼티와 `MoveNext` 메서드로 이를 제공한다.
+    public IEnumerator GetEnumerator()
+    {
+        return new Enumerator(this);
+    }
 
-함수의 중간에 `yield return`하여 빠져나오고 다음 `MoveNext`에서 `yield return`부터 다시 시작한다는 점이 눈여겨볼만한 점이다.
+    class Enumerator : IEnumerator
+    {
+        MyIntList collection;
+
+        int currentIndex = -1;
+
+        public Enumerator(MyIntList collection)
+        {
+            this.collection = collection;
+        }
+
+        public object Current
+        {
+            get
+            {
+                if (currentIndex == -1)
+                    throw new InvalidOperationException("열거가 시작되지 않았음.");
+                if (currentIndex == collection.data.Length)
+                    throw new InvalidOperationException("목록의 끝을 지나쳤음.");
+                return collection.data[currentIndex];
+            }
+        }
+
+        public bool MoveNext()
+        {
+            if (currentIndex >= collection.data.Length - 1) return false;
+            return ++currentIndex < collection.data.Length;
+        }
+
+        public void Reset()
+        {
+            currentIndex = -1;
+        }
+    }
+
+}
+```
+
+## Using IEnumerator as Coroutine
+
+위에서 말했듯이 함수의 중간에 `yield return`하여 빠져나오고 다음 호출에서 `yield return` 다음 문장부터 다시 시작한다는 점이 눈여겨볼만한 점이다.
 
 하지만 컬렉션에서 이를 구현하는 것과 별개로 인터페이스는 구현측에서 다르게 구현하는 것도 가능하기에 Unity에서는 이를 역이용한다.
 
@@ -66,7 +148,6 @@ using System.Threading;
 
 public class Test
 {
-
     private static bool playingAnimation = true;
 
     private static bool playingCinematic = true;
@@ -118,9 +199,23 @@ while (e.MoveNext()) { }
 
 실행해보면 코루틴과 비슷하게 실행되는 것을 볼 수 있다.
 
+`CoroutineFunction`은 Unity의 Coroutine과 똑같이 생각하면 될 것이다. 
+
+각 `bool`변수들이 `false`가 될 때까지 프레임을 계속 쉬어준다.
+
+그리고 `Main`에선 `BoolChanger`를 다른 스레드에서 실행시켜준다.
+
+3초를 쉬어주고 각 `bool`변수들을 `false`로 만들어준다.
+
 `yield return`으로 무언가를 반환하면 반환한 값은 `IEnumerator.Current`에 대입된다.
 
-하지만 `null`을 반환하여 하나의 프레임을 쉬는 것보다는 다른 것을 하고 싶을 수 있다.
+`yield return`을 만났을 때 `IEnumerator`를 만들어주는 컴파일러덕분에 가능하다.
+
+```csharp
+while (e.MoveNext()) { }
+```
+
+이 부분에서 `IEnumerator`의 `MoveNext`를 계속 호출하는데 `MoveNext`의 처음부터가 아니라 마지막에 실행을 멈춘 `yield return`부터 시작을 하는 것을 알 수 있다.
 
 ## Unity3D Coroutines in Nutshell
 
@@ -203,7 +298,9 @@ public class CoroutineManager : MonoBehaviour
 }
 ```
 
-아마도 `CoroutineManager`같은 클래스를 `Monobehaviour`가 상속받아 `StartCoroutine`이나 `StopCoroutine`을 구현한 것이 아닐까 싶다.
+인스펙터에서 `bool`변수들을 차례로 `false`로 만들어주면 Coroutine이 `while`문을 빠져나와 다음 `yield return`으로 갈 수 있는 것을 볼 수 있다.
+
+아마도 `CoroutineManager`같은 클래스를 `Monobehaviour`가 상속받아 `StartCoroutine`이나 `StopCoroutine`을 그대로 상속받은 것이 아닌가 추측해볼 수 있다.
 
 그래서 면접에서 받았던 질문인
 
