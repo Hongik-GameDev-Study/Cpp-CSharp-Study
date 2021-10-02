@@ -88,9 +88,9 @@ int main()
 강의에서는 가독성때문인지 `typedef`를 이용해서 조금 바꿔주네요.
 
 ```cpp
-**typedef bool(ITEM_SELECTOR)(Item*);**
+typedef bool(ITEM_SELECTOR)(Item*);
 
-Item* FindItem(Item items[], int itemCount, **ITEM_SELECTOR* selector**)
+Item* FindItem(Item items[], int itemCount, ITEM_SELECTOR* selector)
 {
     for (int i = 0; i < itemCount; i++)
     {
