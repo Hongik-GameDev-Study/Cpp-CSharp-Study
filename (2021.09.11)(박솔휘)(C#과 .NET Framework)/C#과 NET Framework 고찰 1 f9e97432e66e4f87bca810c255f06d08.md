@@ -9,14 +9,16 @@ C# 언어는 플랫폼 중립적이며, .NET Framework와 함께 잘 작동되�
 - 모든 Type(내장 Type이든, 아니든)은 하나의 공통 기능 형식을 공유한다.
 > 어떤 Type의 인스턴스든 ToString()으로 문자열 변환이 가능하다.
 
+---
 
 **클래스 이외의 여러 사용자 정의 Type**
  
 - 인터페이스 등
 > C#은 JAVA와 마찬가지로 다중 상속을 지원하지 않으나, 인터페이스는 다중 상속이 가능하다.
 
+---
 
-** Method 이외의 함수**
+**Method 이외의 함수**
 
 - Property, Event 등의 함수를 말함
 
@@ -24,13 +26,15 @@ C# 언어는 플랫폼 중립적이며, .NET Framework와 함께 잘 작동되�
 
 > 1. Delegate의 존재, 함수를 값으로서 전달할 수 있다.
 > 2. 람다식과 질의 표현식의 존재
-```
+
+---
 
 **강력한 Static Type 언어**
 
 - 컴파일 시점에 Type Safety를 강력히 규제한다.
 > while(1) 등 묵시적 변환도 불가능
-```
+
+---
 
 **동적 메모리 관리**
 
@@ -38,25 +42,35 @@ C# 언어는 플랫폼 중립적이며, .NET Framework와 함께 잘 작동되�
 
 > C++ 동적 할당에서의 해제 문제가 해결되어, 포인터 사용 문제가 사라진다.
 > 포인터는 Unsafe 표시 블록에서만 사용이 가능해졌다.
-```
+
+---
 
 **멀티 플랫폼 지원**
 
 - 본디 C#은 .NET을 이용한 Windows 플랫폼에서 실행되는 코드를 작성하는데에만 사용되었으나, 
   현재는 다양한 프레임워크의 지원으로 크로스플랫폼이 가능하다.
 
+---
 
 ## **2. .NET Framework**
 
 - .NET Framework는 Windows 플랫폼 어플리케이션 개발을 위한 라이브러리의 집합이다.
-// .NET Framework는 CLR와 BCL(Base Class Language)로 구성된다.
+> .NET Framework는 CLR와 BCL(Base Class Language)로 구성된다.
+
 - C# 뿐만 아니라 F#, VB(Visual Basic), .NET, Managed C++ 등의 언어를 지원한다.
-// 위 언어는 .NET에 의한 Managed Language라고 할 수 있다.
+> 위 언어는 .NET에 의한 Managed Language라고 할 수 있다.
+
+
 - C# (Managed Langauge)는 언어 종속적인 C# 컴파일러에 의해 Managed Code로 컴파일된다.
+
 - 이 Managed Code는 "IL"이라는 중간 언어로 표현되는데, JIT( in CLR )는 이 IL을 기계어 코드로 변경하는데 사용된다. // CLR은 IL to Machine Code 기능의 JIT 외에도 메모리 관리 등 많은 역할을 가진다.
+
 - IL은 CLR을 거쳐 컴퓨터 고유의 .exe로 변경되고, .dll과 .meta 파일들과 함께 Assembly라는 단위로 묶여 패키징된다.
 
-[CLI] // CLI(Common Language Infrastructure)
+---
+
+**CLI** 
+>CLI(Common Language Infrastructure)
 
 - CLI는 여러 고급 언어가 다른 컴퓨터 플랫폼에서 특정한 구조를 위해 별도의 수정 과정 없이 사용될 수 있게 만들어 주는 오픈 규격이다.
 // CLI은 "규격"이며, "기능"이 아님
