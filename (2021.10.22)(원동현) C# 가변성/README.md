@@ -85,7 +85,7 @@ public static void DotDamage<T>(Stack<T> enemies) where T : Enemy
 
 C#4.0부터 인터페이스와 대리자의 형식 매개변수를 선언할 때 `out` 수정자를 지정하면 공변 형식 매개변수가 된다.
 
-![Untitled](C#%20%E1%84%80%E1%85%A1%E1%84%87%E1%85%A7%E1%86%AB%E1%84%89%E1%85%A5%E1%86%BC%2073354a6a80934cb2af53d168a5b4b2bf/Untitled.png)
+![Untitled](image/Untitled.png)
 
 그냥 클래스에는 안되는 것을 확인했다.
 
