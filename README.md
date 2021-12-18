@@ -1,4 +1,4 @@
-# Cpp-CSharp-Study
+# Cpp-CSharp-Study (Close)
 C++과 C# 스터디
 
 ## 규칙
